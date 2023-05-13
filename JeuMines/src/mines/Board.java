@@ -79,7 +79,7 @@ public class Board extends JPanel {
         Random random = new Random();
         int mines_deployed = 0;
         while (mines_deployed < mines) {
-            int position = (int) (allCells * random.nextDouble());
+            int position = (int) (allCells * random.nextInt());
             if ((position < allCells) && (field[position] != COVERED_MINE_CELL)) {
                 field[position] = COVERED_MINE_CELL;
                 mines_deployed++;
