@@ -90,43 +90,27 @@ public class Board extends JPanel {
 
     private void incrementAdjacentCells(int position) {
         int currentCol = position % cols;
-        if (currentCol > 0) {
-            int cell = position - 1 - cols;
-            if (cell >= 0 && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
-            cell = position - 1;
-            if (cell >= 0 && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
-            cell = position + cols - 1;
-            if (cell < allCells && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
-        }
-        int cell = position - cols;
-        if (cell >= 0 && field[cell] != COVERED_MINE_CELL) {
-            field[cell]++;
-        }
-        cell = position + cols;
-        if (cell < allCells && field[cell] != COVERED_MINE_CELL) {
-            field[cell]++;
-        }
+
+        incrementCell(position - 1 - cols);
+        incrementCell(position - 1);
+        incrementCell(position + cols - 1);
+
+        incrementCell(position - cols);
+        incrementCell(position + cols);
+
         if (currentCol < (cols - 1)) {
-            cell = position - cols + 1;
-            if (cell >= 0 && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
-            cell = position + cols + 1;
-            if (cell < allCells && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
-            cell = position + 1;
-            if (cell < allCells && field[cell] != COVERED_MINE_CELL) {
-                field[cell]++;
-            }
+            incrementCell(position - cols + 1);
+            incrementCell(position + cols + 1);
+            incrementCell(position + 1);
         }
     }
+
+    private void incrementCell(int cell) {
+        if (cell >= 0 && cell < allCells && field[cell] != COVERED_MINE_CELL) {
+            field[cell]++;
+        }
+    }
+
 
 
 
