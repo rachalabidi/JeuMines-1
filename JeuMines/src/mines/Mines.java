@@ -32,6 +32,6 @@ public class Mines extends JFrame {
     }
     
     public static void main(String[] args) {
-        new Mines();
+         new Mines();
     }
 }
