@@ -70,23 +70,23 @@ public class Board extends JPanel {
 
         random = new Random();
         inGame = true;
-        mines_left = mines;
+        minesLeft = mines;
 
-        all_cells = rows * cols;
-        field = new int[all_cells];
+        allCells = rows * cols;
+        field = new int[allCells];
         
-        for (i = 0; i < all_cells; i++)
+        for (i = 0; i < allCells; i++)
             field[i] = COVER_FOR_CELL;
 
-        statusbar.setText(Integer.toString(mines_left));
+        statusbar.setText(Integer.toString(minesLeft));
 
 
         i = 0;
         while (i < mines) {
 
-            position = (int) (all_cells * random.nextDouble());
+            position = (int) (allCells * random.nextDouble());
 
-            if ((position < all_cells) &&
+            if ((position < allCells) &&
                 (field[position] != COVERED_MINE_CELL)) {
 
 
@@ -105,7 +105,7 @@ public class Board extends JPanel {
                             field[cell] += 1;
 
                     cell = position + cols - 1;
-                    if (cell < all_cells)
+                    if (cell < allCells)
                         if (field[cell] != COVERED_MINE_CELL)
                             field[cell] += 1;
                 }
@@ -115,7 +115,7 @@ public class Board extends JPanel {
                     if (field[cell] != COVERED_MINE_CELL)
                         field[cell] += 1;
                 cell = position + cols;
-                if (cell < all_cells)
+                if (cell < allCells)
                     if (field[cell] != COVERED_MINE_CELL)
                         field[cell] += 1;
 
@@ -125,11 +125,11 @@ public class Board extends JPanel {
                         if (field[cell] != COVERED_MINE_CELL)
                             field[cell] += 1;
                     cell = position + cols + 1;
-                    if (cell < all_cells)
+                    if (cell < allCells)
                         if (field[cell] != COVERED_MINE_CELL)
                             field[cell] += 1;
                     cell = position + 1;
-                    if (cell < all_cells)
+                    if (cell < allCells)
                         if (field[cell] != COVERED_MINE_CELL)
                             field[cell] += 1;
                 }
@@ -161,7 +161,7 @@ public class Board extends JPanel {
                 }
 
             cell = j + cols - 1;
-            if (cell < all_cells)
+            if (cell < allCells)
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
@@ -178,7 +178,7 @@ public class Board extends JPanel {
             }
 
         cell = j + cols;
-        if (cell < all_cells)
+        if (cell < allCells)
             if (field[cell] > MINE_CELL) {
                 field[cell] -= COVER_FOR_CELL;
                 if (field[cell] == EMPTY_CELL)
@@ -195,7 +195,7 @@ public class Board extends JPanel {
                 }
 
             cell = j + cols + 1;
-            if (cell < all_cells)
+            if (cell < allCells)
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
@@ -203,7 +203,7 @@ public class Board extends JPanel {
                 }
 
             cell = j + 1;
-            if (cell < all_cells)
+            if (cell < allCells)
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
@@ -288,17 +288,17 @@ public class Board extends JPanel {
                         rep = true;
 
                         if (field[(cRow * cols) + cCol] <= COVERED_MINE_CELL) {
-                            if (mines_left > 0) {
+                            if (minesLeft > 0) {
                                 field[(cRow * cols) + cCol] += MARK_FOR_CELL;
-                                mines_left--;
-                                statusbar.setText(Integer.toString(mines_left));
+                                minesLeft--;
+                                statusbar.setText(Integer.toString(minesLeft));
                             } else
                                 statusbar.setText("No marks left");
                         } else {
 
                             field[(cRow * cols) + cCol] -= MARK_FOR_CELL;
-                            mines_left++;
-                            statusbar.setText(Integer.toString(mines_left));
+                            minesLeft++;
+                            statusbar.setText(Integer.toString(minesLeft));
                         }
                     }
 
