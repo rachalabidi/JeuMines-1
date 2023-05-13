@@ -115,79 +115,31 @@ public class Board extends JPanel {
 
 
     public void findEmptyCells(int j) {
-
         int currentCol = j % cols;
-        int cell;
 
-        if (currentCol > 0) {
-            cell = j - cols - 1;
-            if (cell >= 0)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
+        findAndDecrementCell(j - cols - 1);
+        findAndDecrementCell(j - 1);
+        findAndDecrementCell(j + cols - 1);
 
-            cell = j - 1;
-            if (cell >= 0)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
-
-            cell = j + cols - 1;
-            if (cell < allCells)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
-        }
-
-        cell = j - cols;
-        if (cell >= 0)
-            if (field[cell] > MINE_CELL) {
-                field[cell] -= COVER_FOR_CELL;
-                if (field[cell] == EMPTY_CELL)
-                    findEmptyCells(cell);
-            }
-
-        cell = j + cols;
-        if (cell < allCells)
-            if (field[cell] > MINE_CELL) {
-                field[cell] -= COVER_FOR_CELL;
-                if (field[cell] == EMPTY_CELL)
-                    findEmptyCells(cell);
-            }
+        findAndDecrementCell(j - cols);
+        findAndDecrementCell(j + cols);
 
         if (currentCol < (cols - 1)) {
-            cell = j - cols + 1;
-            if (cell >= 0)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
-
-            cell = j + cols + 1;
-            if (cell < allCells)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
-
-            cell = j + 1;
-            if (cell < allCells)
-                if (field[cell] > MINE_CELL) {
-                    field[cell] -= COVER_FOR_CELL;
-                    if (field[cell] == EMPTY_CELL)
-                        findEmptyCells(cell);
-                }
+            findAndDecrementCell(j - cols + 1);
+            findAndDecrementCell(j + cols + 1);
+            findAndDecrementCell(j + 1);
         }
-
     }
+
+    private void findAndDecrementCell(int cell) {
+        if (cell >= 0 && cell < allCells && field[cell] > MINE_CELL) {
+            field[cell] -= COVER_FOR_CELL;
+            if (field[cell] == EMPTY_CELL) {
+                findEmptyCells(cell);
+            }
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         int uncoveredCells = 0;
