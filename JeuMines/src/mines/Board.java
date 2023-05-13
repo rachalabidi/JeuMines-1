@@ -142,52 +142,63 @@ public class Board extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        int uncoveredCells = 0;
+        int uncover = 0;
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                int cell = field[row * cols + col];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int cell = field[(i * cols) + j];
 
                 if (inGame && cell == MINE_CELL) {
-                    inGame = false;
+                    handleMineCell();
                 }
 
                 if (!inGame) {
-                    switch (cell) {
-                        case COVERED_MINE_CELL:
-                            cell = DRAW_MINE;
-                            break;
-                        case MARKED_MINE_CELL:
-                            cell = DRAW_MARK;
-                            break;
-                        case DRAW_COVER:
-                            break;
-                        default:
-                            if (cell > MINE_CELL) {
-                                cell = DRAW_WRONG_MARK;
-                            }
-                            break;
-                    }
+                    handleEndGameCell(cell);
                 } else {
-                    if (cell > COVERED_MINE_CELL) {
-                        cell = DRAW_MARK;
-                    } else if (cell > MINE_CELL) {
-                        cell = DRAW_COVER;
-                        uncoveredCells++;
-                    }
+                    handleInGameCell(cell, j, i, uncover);
                 }
 
-                g.drawImage(img[cell], col * CELL_SIZE, row * CELL_SIZE, this);
+                g.drawImage(img[cell], (j * CELL_SIZE), (i * CELL_SIZE), this);
             }
         }
 
-        if (uncoveredCells == 0 && inGame) {
+        updateStatusBar(uncover);
+    }
+
+    private void handleMineCell() {
+        inGame = false;
+    }
+
+    private void handleEndGameCell(int cell) {
+        if (cell == COVERED_MINE_CELL) {
+            cell = DRAW_MINE;
+        } else if (cell == MARKED_MINE_CELL) {
+            cell = DRAW_MARK;
+        } else if (cell > COVERED_MINE_CELL) {
+            cell = DRAW_WRONG_MARK;
+        } else if (cell > MINE_CELL) {
+            cell = DRAW_COVER;
+        }
+    }
+
+    private void handleInGameCell(int cell, int col, int row, int uncover) {
+        if (cell > COVERED_MINE_CELL) {
+            cell = DRAW_MARK;
+        } else if (cell > MINE_CELL) {
+            cell = DRAW_COVER;
+            uncover++;
+        }
+    }
+
+    private void updateStatusBar(int uncover) {
+        if (uncover == 0 && inGame) {
             inGame = false;
             statusbar.setText("Game won");
         } else if (!inGame) {
             statusbar.setText("Game lost");
         }
     }
+
 
 
 
