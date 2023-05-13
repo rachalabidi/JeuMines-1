@@ -66,13 +66,13 @@ public class Board extends JPanel {
 
     private void initializeGame() {
         inGame = true;
-        mines_left = mines;
+        minesLeft = mines;
         allCells = rows * cols;
         field = new int[allCells];
         for (int i = 0; i < allCells; i++) {
             field[i] = COVER_FOR_CELL;
         }
-        statusbar.setText(Integer.toString(mines_left));
+        statusbar.setText(Integer.toString(minesLeft));
     }
 
     private void deployMines() {
