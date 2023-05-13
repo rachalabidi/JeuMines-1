@@ -132,10 +132,10 @@ public class Board extends JPanel {
 
     public void findEmptyCells(int j) {
 
-        int current_col = j % cols;
+        int currentCol = j % cols;
         int cell;
 
-        if (current_col > 0) { 
+        if (currentCol > 0) {
             cell = j - cols - 1;
             if (cell >= 0)
                 if (field[cell] > MINE_CELL) {
@@ -177,7 +177,7 @@ public class Board extends JPanel {
                     findEmptyCells(cell);
             }
 
-        if (current_col < (cols - 1)) {
+        if (currentCol < (cols - 1)) {
             cell = j - cols + 1;
             if (cell >= 0)
                 if (field[cell] > MINE_CELL) {
