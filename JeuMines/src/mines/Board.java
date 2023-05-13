@@ -31,12 +31,12 @@ public class Board extends JPanel {
 
     private int[] field;
     private boolean inGame;
-    private int mines_left;
+    private int minesLeft;
     private Image[] img;
     private int mines = 40;
     private int rows = 16;
     private int cols = 16;
-    private int all_cells;
+    private int allCells;
     private JLabel statusbar;
 
 
