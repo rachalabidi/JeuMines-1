@@ -130,7 +130,7 @@ public class Board extends JPanel {
 
 
 
-    public void find_empty_cells(int j) {
+    public void findEmptyCells(int j) {
 
         int current_col = j % cols;
         int cell;
@@ -141,7 +141,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
 
             cell = j - 1;
@@ -149,7 +149,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
 
             cell = j + cols - 1;
@@ -157,7 +157,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
         }
 
@@ -166,7 +166,7 @@ public class Board extends JPanel {
             if (field[cell] > MINE_CELL) {
                 field[cell] -= COVER_FOR_CELL;
                 if (field[cell] == EMPTY_CELL)
-                    find_empty_cells(cell);
+                    findEmptyCells(cell);
             }
 
         cell = j + cols;
@@ -174,7 +174,7 @@ public class Board extends JPanel {
             if (field[cell] > MINE_CELL) {
                 field[cell] -= COVER_FOR_CELL;
                 if (field[cell] == EMPTY_CELL)
-                    find_empty_cells(cell);
+                    findEmptyCells(cell);
             }
 
         if (current_col < (cols - 1)) {
@@ -183,7 +183,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
 
             cell = j + cols + 1;
@@ -191,7 +191,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
 
             cell = j + 1;
@@ -199,7 +199,7 @@ public class Board extends JPanel {
                 if (field[cell] > MINE_CELL) {
                     field[cell] -= COVER_FOR_CELL;
                     if (field[cell] == EMPTY_CELL)
-                        find_empty_cells(cell);
+                        findEmptyCells(cell);
                 }
         }
 
@@ -312,7 +312,7 @@ public class Board extends JPanel {
                         if (field[(cRow * cols) + cCol] == MINE_CELL)
                             inGame = false;
                         if (field[(cRow * cols) + cCol] == EMPTY_CELL)
-                            find_empty_cells((cRow * cols) + cCol);
+                            findEmptyCells((cRow * cols) + cCol);
                     }
                 }
 
