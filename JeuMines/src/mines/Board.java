@@ -206,51 +206,51 @@ public class Board extends JPanel {
     }
 
     public void paint(Graphics g) {
+        int uncoveredCells = 0;
 
-        int cell = 0;
-        int uncover = 0;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                int cell = field[row * cols + col];
 
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-
-                cell = field[(i * cols) + j];
-
-                if (inGame && cell == MINE_CELL)
+                if (inGame && cell == MINE_CELL) {
                     inGame = false;
+                }
 
                 if (!inGame) {
-                    if (cell == COVERED_MINE_CELL) {
-                        cell = DRAW_MINE;
-                    } else if (cell == MARKED_MINE_CELL) {
+                    switch (cell) {
+                        case COVERED_MINE_CELL:
+                            cell = DRAW_MINE;
+                            break;
+                        case MARKED_MINE_CELL:
+                            cell = DRAW_MARK;
+                            break;
+                        case DRAW_COVER:
+                            break;
+                        default:
+                            if (cell > MINE_CELL) {
+                                cell = DRAW_WRONG_MARK;
+                            }
+                            break;
+                    }
+                } else {
+                    if (cell > COVERED_MINE_CELL) {
                         cell = DRAW_MARK;
-                    } else if (cell > COVERED_MINE_CELL) {
-                        cell = DRAW_WRONG_MARK;
                     } else if (cell > MINE_CELL) {
                         cell = DRAW_COVER;
-                    }
-
-
-                } else {
-                    if (cell > COVERED_MINE_CELL)
-                        cell = DRAW_MARK;
-                    else if (cell > MINE_CELL) {
-                        cell = DRAW_COVER;
-                        uncover++;
+                        uncoveredCells++;
                     }
                 }
 
-                g.drawImage(img[cell], (j * CELL_SIZE),
-                    (i * CELL_SIZE), this);
+                g.drawImage(img[cell], col * CELL_SIZE, row * CELL_SIZE, this);
             }
         }
 
-
-        if (uncover == 0 && inGame) {
+        if (uncoveredCells == 0 && inGame) {
             inGame = false;
             statusbar.setText("Game won");
-        } else if (!inGame)
+        } else if (!inGame) {
             statusbar.setText("Game lost");
+        }
     }
 
 
