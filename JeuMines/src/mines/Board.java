@@ -29,10 +29,10 @@ public class Board extends JPanel {
     private static final int DRAW_MARK = 11;
     private static final int DRAW_WRONG_MARK = 12;
 
-    private int[] field;
+    private  int[] field;
     private boolean inGame;
     private int minesLeft;
-    private Image[] img;
+    private transient Image[] img;
     private int mines = 40;
     private int rows = 16;
     private int cols = 16;
